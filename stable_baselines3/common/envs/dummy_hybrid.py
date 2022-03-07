@@ -89,7 +89,10 @@ class DummyHybrid(gym.Env):
         choosen_parameter_sum = np.sum(choosen_parameter)
         difference_to_target = np.abs(self.PARAMETER_SUM_TARGET - choosen_parameter_sum)
 
+        old_settings = np.seterr(all="ignore")
+        np.seterr(under="warn")
         reward = np.exp(-difference_to_target)
+        np.seterr(**old_settings)
         reward = reward - 1 + self.reward_bias[discrete_action]
         return float(reward)
 
