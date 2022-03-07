@@ -23,10 +23,7 @@ def dummy_reward_function():
 
 
 @pytest.mark.parametrize(
-    "wrapper, action_space",
-    [
-        (SimpleHybridWrapper, SimpleHybrid),
-    ],
+    "wrapper, action_space", [(SimpleHybridWrapper, SimpleHybrid),],
 )
 def test_init_hybrid_simple(wrapper, action_space, simple_env):
     wrapped_env = wrapper(simple_env)
@@ -38,11 +35,7 @@ def test_init_hybrid_simple(wrapper, action_space, simple_env):
 
 
 @pytest.mark.parametrize(
-    "wrapper, action_space",
-    [
-        (SequenceWrapper, ContinuousParameters),
-        (OneHotWrapper, OneHotHybrid),
-    ],
+    "wrapper, action_space", [(SequenceWrapper, ContinuousParameters), (OneHotWrapper, OneHotHybrid),],
 )
 def test_init_hybrid_advanced(wrapper, action_space, simple_hybrid_env):
     if wrapper == SequenceWrapper:
@@ -57,10 +50,7 @@ def test_init_hybrid_advanced(wrapper, action_space, simple_hybrid_env):
 
 
 @pytest.mark.parametrize(
-    "wrapper",
-    [
-        (SimpleHybridWrapper),
-    ],
+    "wrapper", [(SimpleHybridWrapper),],
 )
 def test_hybrid_simple_step_sample(wrapper, simple_env):
     wrapped_env = wrapper(simple_env)
@@ -78,10 +68,7 @@ def test_hybrid_simple_step_sample(wrapper, simple_env):
 
 
 @pytest.mark.parametrize(
-    "wrapper",
-    [
-        (OneHotWrapper),
-    ],
+    "wrapper", [(OneHotWrapper),],
 )
 def test_onehot_hybrid_step_sample(wrapper, simple_hybrid_env):
     wrapped_env = wrapper(simple_hybrid_env)
@@ -106,11 +93,7 @@ def test_onehot_hybrid_step_sample(wrapper, simple_hybrid_env):
 
 
 @pytest.mark.parametrize(
-    "sequence",
-    [
-        [0, 1, 3, 2],
-        [1, 1, 1, 3],
-    ],
+    "sequence", [[0, 1, 3, 2], [1, 1, 1, 3],],
 )
 def test_init_sequence(sequence, simple_hybrid_env):
     wrapped_env = SequenceWrapper(simple_hybrid_env, sequence)
@@ -121,11 +104,7 @@ def test_init_sequence(sequence, simple_hybrid_env):
 
 
 @pytest.mark.parametrize(
-    "sequence",
-    [
-        [0, 1, 3, 2],
-        [1, 1, 1, 3],
-    ],
+    "sequence", [[0, 1, 3, 2], [1, 1, 1, 3],],
 )
 def test_sequence_hybrid_step_sample(sequence, simple_hybrid_env):
     wrapped_env = SequenceWrapper(simple_hybrid_env, sequence, OneStepPerStageController())

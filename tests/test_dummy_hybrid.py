@@ -26,12 +26,7 @@ def test_empty_list():
 
 
 @pytest.mark.parametrize(
-    "parameter_dimensions",
-    [
-        [1],
-        [1, 3, 4],
-        [5, 6, 7, 1, 2],
-    ],
+    "parameter_dimensions", [[1], [1, 3, 4], [5, 6, 7, 1, 2],],
 )
 def test__dimensions(parameter_dimensions):
     env = DummyHybrid(parameter_dimensions)
@@ -41,12 +36,7 @@ def test__dimensions(parameter_dimensions):
 
 
 @pytest.mark.parametrize(
-    "observation_dimension",
-    [
-        1,
-        10,
-        434,
-    ],
+    "observation_dimension", [1, 10, 434,],
 )
 def test_observation_dimensions(observation_dimension):
     env = DummyHybrid([1], observation_dimension)
@@ -79,13 +69,7 @@ def test_reset():
 
 
 @pytest.mark.parametrize(
-    "parameters",
-    [
-        [-1, 1],
-        [2, 2],
-        [0, 0],
-        [-1e-4, 0],
-    ],
+    "parameters", [[-1, 1], [2, 2], [0, 0], [-1e-4, 0],],
 )
 def test_reward_not_positive(parameters):
     env = DummyHybrid([2])
@@ -94,14 +78,7 @@ def test_reward_not_positive(parameters):
 
 
 @pytest.mark.parametrize(
-    "steps",
-    [
-        2,
-        N_MAX_STEPS - 1,
-        N_MAX_STEPS,
-        N_MAX_STEPS + 1,
-        N_MAX_STEPS + 10,
-    ],
+    "steps", [2, N_MAX_STEPS - 1, N_MAX_STEPS, N_MAX_STEPS + 1, N_MAX_STEPS + 10,],
 )
 def test_is_done(steps):
     env = DummyHybrid([2])

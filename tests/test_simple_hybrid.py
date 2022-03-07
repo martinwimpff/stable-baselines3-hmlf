@@ -75,13 +75,7 @@ def test_build_action():
     space = SimpleHybrid(continuous_spaces)
 
     discrete = np.array([2, 0, 1])
-    parameters = np.array(
-        [
-            [0, 3, 2],
-            [-10, 3, 63.1],
-            [0, 3, 50],
-        ]
-    )
+    parameters = np.array([[0, 3, 2], [-10, 3, 63.1], [0, 3, 50],])
 
     action = space.build_action(discrete, parameters)
     assert isinstance(action, list)

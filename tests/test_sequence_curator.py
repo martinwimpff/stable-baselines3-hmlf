@@ -13,12 +13,7 @@ def test_init_wrong_arguments():
 
 
 @pytest.mark.parametrize(
-    "sequence",
-    [
-        [1, 0, 2, 3],
-        [1],
-        [1, 1, 1, 1, 0, 2, 3],
-    ],
+    "sequence", [[1, 0, 2, 3], [1], [1, 1, 1, 1, 0, 2, 3],],
 )
 def test_init(sequence):
     os_curator = SequenceCurator(sequence)

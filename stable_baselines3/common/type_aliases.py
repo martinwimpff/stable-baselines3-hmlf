@@ -22,6 +22,7 @@ Schedule = Callable[[float], float]
 StageFunction = Callable[[np.ndarray], bool]
 RewardFunction = Callable[[np.ndarray], float]
 
+
 class RolloutBufferSamples(NamedTuple):
     observations: th.Tensor
     actions: th.Tensor

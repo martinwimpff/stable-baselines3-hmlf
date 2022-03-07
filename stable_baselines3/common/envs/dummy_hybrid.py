@@ -17,10 +17,7 @@ class DummyHybrid(gym.Env):
     """
 
     def __init__(
-        self,
-        parameter_dimensions: List[int],
-        observation_dimension: int = 3,
-        reward_bias: Optional[np.ndarray] = None,
+        self, parameter_dimensions: List[int], observation_dimension: int = 3, reward_bias: Optional[np.ndarray] = None,
     ):
         self.LIMIT = 1000
         self.PARAMETER_SUM_TARGET = 0

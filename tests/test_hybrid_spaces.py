@@ -15,10 +15,7 @@ from stable_baselines3.common.spaces import OneHotHybrid, SimpleHybrid
             Box(low=-1, high=1, shape=(4,)),
             Box(low=-1, high=1, shape=(5,)),
         ],
-        [
-            Box(low=-1, high=143, shape=(1,)),
-            Box(low=1, high=1.2, shape=(0,)),
-        ],
+        [Box(low=-1, high=143, shape=(1,)), Box(low=1, high=1.2, shape=(0,)),],
     ],
 )
 def test_init_simple_hybrid(spaces):
@@ -52,10 +49,7 @@ def test_init_simple_hybrid(spaces):
             Box(low=-1, high=1, shape=(4,)),
             Box(low=-1, high=1, shape=(5,)),
         ],
-        [
-            Box(low=-1, high=143, shape=(1,)),
-            Box(low=1, high=1.2, shape=(2,)),
-        ],
+        [Box(low=-1, high=143, shape=(1,)), Box(low=1, high=1.2, shape=(2,)),],
     ],
 )
 def test_init_onehot_hybrid(spaces):
