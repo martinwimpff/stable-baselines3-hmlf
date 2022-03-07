@@ -108,7 +108,7 @@ def test_init_sequence(sequence, simple_hybrid_env):
 )
 def test_sequence_hybrid_step_sample(sequence, simple_hybrid_env):
     wrapped_env = SequenceWrapper(simple_hybrid_env, sequence, OneStepPerStageController())
-    for i in range(2):
+    for _ in range(2):
         obs = wrapped_env.reset()
         for action in sequence:
             assert obs[0] == action
