@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from gym.spaces import Discrete
 
-from stable_baselines3.common.spaces import SimpleHybrid, HybridBase
+from stable_baselines3.common.spaces import HybridBase, SimpleHybrid
 
 from .utils import make_box
 

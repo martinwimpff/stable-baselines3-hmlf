@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, List, Optional
 
 import numpy as np
-from gym import spaces, Wrapper
+from gym import Wrapper, spaces
 
 if TYPE_CHECKING:
     from stable_baselines3.common.type_aliases import GymEnv

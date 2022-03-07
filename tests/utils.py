@@ -1,6 +1,8 @@
 from typing import List, Optional, Tuple
+
 import numpy as np
 from gym.spaces import Box
+
 
 def make_box(low: Optional[List] = None, high: Optional[List] = None, shape: Optional[Tuple] = None) -> Box:
     if shape is None:

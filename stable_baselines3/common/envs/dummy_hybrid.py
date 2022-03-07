@@ -2,8 +2,8 @@ from typing import Dict, List, Optional, Tuple
 
 import gym
 import numpy as np
-
 from gym.spaces import Box
+
 from stable_baselines3.common.spaces import SimpleHybrid
 
 

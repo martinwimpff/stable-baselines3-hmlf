@@ -2,8 +2,8 @@ import typing
 from typing import List, Tuple, Union
 
 import numpy as np
-
 from gym.spaces import Box, Space
+
 from stable_baselines3.common.spaces.hybrid_base import HybridBase
 
 

@@ -3,7 +3,6 @@ from abc import ABCMeta, abstractmethod
 from typing import List, Tuple, Union
 
 import numpy as np
-
 from gym.spaces import Box, Space
 from gym.spaces import Tuple as GymTuple
 

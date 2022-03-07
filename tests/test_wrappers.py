@@ -2,13 +2,7 @@ import gym
 import numpy as np
 import pytest
 
-from stable_baselines3.common.envs import (
-    DummyEnv, 
-    DummyHybrid,
-    OneHotWrapper,
-    SequenceWrapper,
-    SimpleHybridWrapper
-)
+from stable_baselines3.common.envs import DummyEnv, DummyHybrid, OneHotWrapper, SequenceWrapper, SimpleHybridWrapper
 from stable_baselines3.common.envs.stage_controller import OneStepPerStageController, StateDependentStageController
 from stable_baselines3.common.spaces import ContinuousParameters, OneHotHybrid, SimpleHybrid
 

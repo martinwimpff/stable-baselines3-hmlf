@@ -3,24 +3,24 @@ import os
 import platform
 import random
 from collections import deque
-from itertools import zip_longest
 from inspect import isclass
-from typing import Dict, Iterable, Optional, Tuple, Union, Type, TYPE_CHECKING
+from itertools import zip_longest
+from typing import TYPE_CHECKING, Dict, Iterable, Optional, Tuple, Type, Union
 
 import gym
 import numpy as np
 import torch as th
-
-import stable_baselines3 as sb3
-
-if TYPE_CHECKING:
-    from stable_baselines3.common.base_class import BaseAlgorithm
 
 # Check if tensorboard is available for pytorch
 try:
     from torch.utils.tensorboard import SummaryWriter
 except ImportError:
     SummaryWriter = None
+
+import stable_baselines3 as sb3
+
+if TYPE_CHECKING:
+    from stable_baselines3.common.base_class import BaseAlgorithm
 
 from stable_baselines3.common.logger import Logger, configure
 from stable_baselines3.common.type_aliases import GymEnv, Schedule, TensorDict, TrainFreq, TrainFrequencyUnit

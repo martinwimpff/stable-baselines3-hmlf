@@ -1,9 +1,9 @@
 from typing import TYPE_CHECKING, Callable, List, Optional, Type, Union
 
 from gym import spaces
-from stable_baselines3.common.utils import convert_algorithm_to_string
 
 from stable_baselines3.common.envs.stage_controller import BaseStageController
+from stable_baselines3.common.utils import convert_algorithm_to_string
 
 if TYPE_CHECKING:
     from stable_baselines3.common.base_class import BaseAlgorithm

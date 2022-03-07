@@ -1,8 +1,8 @@
 from typing import List, Tuple, Union
 
 import numpy as np
-
 from gym.spaces import Space
+
 from stable_baselines3.common.spaces.simple_hybrid import SimpleHybrid
 
 
