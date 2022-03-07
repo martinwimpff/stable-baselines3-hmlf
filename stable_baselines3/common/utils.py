@@ -4,13 +4,17 @@ import platform
 import random
 from collections import deque
 from itertools import zip_longest
-from typing import Dict, Iterable, Optional, Tuple, Union
+from inspect import isclass
+from typing import Dict, Iterable, Optional, Tuple, Union, Type, TYPE_CHECKING
 
 import gym
 import numpy as np
 import torch as th
 
 import stable_baselines3 as sb3
+
+if TYPE_CHECKING:
+    from stable_baselines3.common.base_class import BaseAlgorithm
 
 # Check if tensorboard is available for pytorch
 try:
@@ -20,6 +24,31 @@ except ImportError:
 
 from stable_baselines3.common.logger import Logger, configure
 from stable_baselines3.common.type_aliases import GymEnv, Schedule, TensorDict, TrainFreq, TrainFrequencyUnit
+
+
+def convert_algorithm_to_string(algorithm: Union[str, Type["BaseAlgorithm"]]) -> str:
+    """
+    Converts a algorithm class like `DDPG` to the string 'DDPG' or returns the given string.
+    :param algorithm: The class to convert. Can be a string or a class that derives from `BaseAlgorithm`.
+    :return: The classname.
+    """
+    if isclass(algorithm):
+        algorithm = convert_class_to_string(algorithm)
+    else:
+        algorithm = str(algorithm)
+    return algorithm.upper()
+
+def convert_class_to_string(algorithm: Type["BaseAlgorithm"]) -> str:
+    """
+    Converts a algorithm class like `DDPG` to the string 'DDPG'.
+    :param algorithm: The algorithm to be converted. Should be a subclass of `BaseAlgorithm.
+    :return: The classname.
+    """
+    representation = str(algorithm)
+    sanitized_representation = representation.replace("'", "").replace(">", "")
+    dot_separated_parts = sanitized_representation.split(".")
+    class_name = dot_separated_parts[-1]
+    return class_name
 
 
 def set_random_seed(seed: int, using_cuda: bool = False) -> None:
