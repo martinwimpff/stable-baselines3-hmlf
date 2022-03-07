@@ -38,12 +38,12 @@ jobs:
     - name: Type check
       run: |
         make type
-    - name: Check codestyle
-      run: |
-        make check-codestyle
-    - name: Lint with flake8
-      run: |
-        make lint
+    #- name: Check codestyle
+    #  run: |
+    #    make check-codestyle
+    #- name: Lint with flake8
+    #  run: |
+    #    make lint
     - name: Test with pytest
       run: |
         make pytest
