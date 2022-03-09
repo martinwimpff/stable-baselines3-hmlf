@@ -8,6 +8,7 @@ from stable_baselines3.common.off_policy_algorithm import OffPolicyAlgorithm
 from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
 from stable_baselines3.td3.policies import TD3Policy
 from stable_baselines3.td3.td3 import TD3
+from stable_baselines3.common.envs.wrap_environment import register_algorithm_for_wrap_environment, wrap_no_wrap
 
 
 class DDPG(TD3):
@@ -138,3 +139,5 @@ class DDPG(TD3):
             eval_log_path=eval_log_path,
             reset_num_timesteps=reset_num_timesteps,
         )
+
+register_algorithm_for_wrap_environment(DDPG, wrap_no_wrap)

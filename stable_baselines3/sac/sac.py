@@ -11,6 +11,7 @@ from stable_baselines3.common.off_policy_algorithm import OffPolicyAlgorithm
 from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
 from stable_baselines3.common.utils import polyak_update
 from stable_baselines3.sac.policies import SACPolicy
+from stable_baselines3.common.envs.wrap_environment import register_algorithm_for_wrap_environment, wrap_no_wrap
 
 
 class SAC(OffPolicyAlgorithm):
@@ -312,3 +313,5 @@ class SAC(OffPolicyAlgorithm):
         else:
             saved_pytorch_variables = ["ent_coef_tensor"]
         return state_dicts, saved_pytorch_variables
+
+register_algorithm_for_wrap_environment(SAC, wrap_no_wrap)

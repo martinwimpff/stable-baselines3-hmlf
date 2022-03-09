@@ -6,6 +6,7 @@ import torch as th
 from gym import spaces
 from torch.nn import functional as F
 
+from stable_baselines3.common.envs.wrap_environment import register_algorithm_for_wrap_environment, wrap_simple_hybrid_if_tuple_action_space
 from stable_baselines3.common.on_policy_algorithm import OnPolicyAlgorithm
 from stable_baselines3.common.policies import ActorCriticPolicy
 from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
@@ -117,6 +118,7 @@ class PPO(OnPolicyAlgorithm):
                 spaces.Discrete,
                 spaces.MultiDiscrete,
                 spaces.MultiBinary,
+                spaces.Tuple
             ),
         )
 
@@ -312,3 +314,5 @@ class PPO(OnPolicyAlgorithm):
             eval_log_path=eval_log_path,
             reset_num_timesteps=reset_num_timesteps,
         )
+
+register_algorithm_for_wrap_environment(PPO, wrap_simple_hybrid_if_tuple_action_space)

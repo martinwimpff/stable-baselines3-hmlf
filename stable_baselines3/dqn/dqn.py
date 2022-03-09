@@ -12,6 +12,7 @@ from stable_baselines3.common.preprocessing import maybe_transpose
 from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
 from stable_baselines3.common.utils import get_linear_fn, is_vectorized_observation, polyak_update
 from stable_baselines3.dqn.policies import DQNPolicy
+from stable_baselines3.common.envs.wrap_environment import register_algorithm_for_wrap_environment, wrap_no_wrap
 
 
 class DQN(OffPolicyAlgorithm):
@@ -274,3 +275,5 @@ class DQN(OffPolicyAlgorithm):
         state_dicts = ["policy", "policy.optimizer"]
 
         return state_dicts, []
+
+register_algorithm_for_wrap_environment(DQN, wrap_no_wrap)

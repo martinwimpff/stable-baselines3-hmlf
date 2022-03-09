@@ -11,6 +11,7 @@ from stable_baselines3.common.off_policy_algorithm import OffPolicyAlgorithm
 from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
 from stable_baselines3.common.utils import polyak_update
 from stable_baselines3.td3.policies import TD3Policy
+from stable_baselines3.common.envs.wrap_environment import register_algorithm_for_wrap_environment, wrap_no_wrap
 
 
 class TD3(OffPolicyAlgorithm):
@@ -111,7 +112,7 @@ class TD3(OffPolicyAlgorithm):
             seed=seed,
             sde_support=False,
             optimize_memory_usage=optimize_memory_usage,
-            supported_action_spaces=(gym.spaces.Box),
+            supported_action_spaces=(gym.spaces.Box, gym.spaces.Tuple),
             support_multi_env=True,
         )
 
@@ -220,3 +221,5 @@ class TD3(OffPolicyAlgorithm):
     def _get_torch_save_params(self) -> Tuple[List[str], List[str]]:
         state_dicts = ["policy", "actor.optimizer", "critic.optimizer"]
         return state_dicts, []
+
+register_algorithm_for_wrap_environment(TD3, wrap_no_wrap)
