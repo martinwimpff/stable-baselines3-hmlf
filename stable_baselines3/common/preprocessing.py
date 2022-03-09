@@ -6,6 +6,8 @@ import torch as th
 from gym import spaces
 from torch.nn import functional as F
 
+from stable_baselines3.common.spaces import HybridBase
+
 
 def is_image_space_channels_first(observation_space: spaces.Box) -> bool:
     """
@@ -195,6 +197,8 @@ def get_action_dim(action_space: spaces.Space) -> int:
     elif isinstance(action_space, spaces.MultiBinary):
         # Number of binary actions
         return int(action_space.n)
+    elif isinstance(action_space, HybridBase):
+        return action_space.get_dimension()
     else:
         raise NotImplementedError(f"{action_space} action space is not supported")
 

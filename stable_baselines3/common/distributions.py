@@ -10,6 +10,7 @@ from torch import nn
 from torch.distributions import Bernoulli, Categorical, Normal
 
 from stable_baselines3.common.preprocessing import get_action_dim
+from stable_baselines3.common.spaces import SimpleHybrid, HybridBase
 
 
 class Distribution(ABC):
@@ -293,6 +294,75 @@ class CategoricalDistribution(Distribution):
 
     def log_prob_from_params(self, action_logits: th.Tensor) -> Tuple[th.Tensor, th.Tensor]:
         actions = self.actions_from_params(action_logits)
+        log_prob = self.log_prob(actions)
+        return actions, log_prob
+
+
+class HybridDistribution(Distribution):
+    """
+    Hybrid distribution for hybrid actions.
+
+    :param action_space: the action  space of the environment being used
+    """
+
+    def __init__(self, action_space: HybridBase):
+        super(HybridDistribution, self).__init__()
+        self.distribution = None
+        self.action_space = action_space
+        self.discrete_dim = action_space.get_n_discrete_options()
+        self.continuous_dim = action_space.get_n_continuous_options()
+        # param_idx keeps track where the parameters are in the logits/mean_actions
+        self.param_idx = slice(self.discrete_dim, self.discrete_dim + self.continuous_dim)
+        # action_idx keeps track where the parameters are in the logits/mean_actions
+        self.action_idx = slice(self.discrete_dim)
+        self.action_dist = None
+        self.param_dist = None
+
+    def proba_distribution_net(self, latent_dim: int, log_std_init: float = 0.0) -> nn.Module:
+        """
+        Create the layer that represents the distribution:
+        it will be the logits of the Categorical distribution.
+        You can then get probabilities using a softmax.
+
+        :param latent_dim: Dimension of the last layer
+            of the policy network (before the action layer)
+        :return:
+        """
+        action_logits_and_mean = nn.Linear(latent_dim, self.discrete_dim + self.continuous_dim)
+        log_std = nn.Parameter(th.ones(self.continuous_dim) * log_std_init, requires_grad=True)
+
+        return action_logits_and_mean, log_std
+
+    def proba_distribution(self, action_logits: th.Tensor, log_std: th.Tensor) -> "HybridDistribution":
+        action_std = th.ones_like(action_logits[:, self.param_idx]) * log_std.exp()
+        self.action_dist = Categorical(logits=action_logits[:, self.action_idx])
+        self.param_dist = Normal(action_logits[:, self.param_idx], action_std)
+        return self
+
+    def log_prob(self, actions: th.Tensor) -> th.Tensor:
+        log_prob_actions = self.action_dist.log_prob(actions[:, 0])
+        log_prob_param = sum_independent_dims(self.param_dist.log_prob(actions[:, 1:]))
+        return log_prob_actions + log_prob_param
+
+    def entropy(self) -> th.Tensor:
+
+        return self.action_dist.entropy() + sum_independent_dims(self.param_dist.entropy())
+
+    def sample(self) -> th.Tensor:
+        params = self.param_dist.sample()
+        action = self.action_dist.sample()
+        return th.cat((action.view(-1, 1), params), dim=1)
+
+    def mode(self) -> th.Tensor:
+        action = th.argmax(self.action_dist.probs, dim=1)
+        return th.cat((action.view(-1, 1), self.param_dist.mean), dim=1)
+
+    def actions_from_params(self, action_logits: th.Tensor, log_std: th.Tensor, deterministic: bool = False) -> th.Tensor:
+        self.proba_distribution(action_logits, log_std)
+        return self.get_actions(deterministic=deterministic)
+
+    def log_prob_from_params(self, action_logits: th.Tensor, log_std: th.Tensor) -> Tuple[th.Tensor, th.Tensor]:
+        actions = self.actions_from_params(action_logits, log_std)
         log_prob = self.log_prob(actions)
         return actions, log_prob
 
@@ -666,6 +736,8 @@ def make_proba_distribution(
         return MultiCategoricalDistribution(action_space.nvec, **dist_kwargs)
     elif isinstance(action_space, spaces.MultiBinary):
         return BernoulliDistribution(action_space.n, **dist_kwargs)
+    elif isinstance(action_space, SimpleHybrid):
+        return HybridDistribution(action_space)
     else:
         raise NotImplementedError(
             "Error: probability distribution, not implemented for action space"

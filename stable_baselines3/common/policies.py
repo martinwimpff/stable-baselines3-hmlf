@@ -20,6 +20,7 @@ from stable_baselines3.common.distributions import (
     MultiCategoricalDistribution,
     StateDependentNoiseDistribution,
     make_proba_distribution,
+    HybridDistribution
 )
 from stable_baselines3.common.preprocessing import get_action_dim, is_image_space, maybe_transpose, preprocess_obs
 from stable_baselines3.common.torch_layers import (
@@ -32,6 +33,7 @@ from stable_baselines3.common.torch_layers import (
 )
 from stable_baselines3.common.type_aliases import Schedule
 from stable_baselines3.common.utils import get_device, is_vectorized_observation, obs_as_tensor
+from stable_baselines3.common.spaces import ContinuousParameters, SimpleHybrid
 
 
 class BaseModel(nn.Module, ABC):
@@ -347,6 +349,12 @@ class BasePolicy(BaseModel):
                 # Actions could be on arbitrary scale, so clip the actions to avoid
                 # out of bound error (e.g. if sampling from a Gaussian distribution)
                 actions = np.clip(actions, self.action_space.low, self.action_space.high)
+        if isinstance(self.action_space, SimpleHybrid):
+            actions = self.action_space.format_action(actions)
+        if isinstance(self.action_space, ContinuousParameters):
+            actions = np.clip(actions, -1, self.action_space.high)
+            actions = self.unscale_action(actions)
+            actions = self.action_space.format_action(actions)
 
         # Remove batch dimension if needed
         if not vectorized_env:
@@ -553,6 +561,10 @@ class ActorCriticPolicy(BasePolicy):
             )
         elif isinstance(self.action_dist, (CategoricalDistribution, MultiCategoricalDistribution, BernoulliDistribution)):
             self.action_net = self.action_dist.proba_distribution_net(latent_dim=latent_dim_pi)
+        elif isinstance(self.action_dist, HybridDistribution):
+            self.action_net, self.log_std = self.action_dist.proba_distribution_net(
+                latent_dim=latent_dim_pi, log_std_init=self.log_std_init
+            )
         else:
             raise NotImplementedError(f"Unsupported distribution '{self.action_dist}'.")
 
@@ -616,6 +628,8 @@ class ActorCriticPolicy(BasePolicy):
             return self.action_dist.proba_distribution(action_logits=mean_actions)
         elif isinstance(self.action_dist, StateDependentNoiseDistribution):
             return self.action_dist.proba_distribution(mean_actions, self.log_std, latent_pi)
+        elif isinstance(self.action_dist, HybridDistribution):
+            return self.action_dist.proba_distribution(mean_actions, self.log_std)
         else:
             raise ValueError("Invalid action distribution")
 

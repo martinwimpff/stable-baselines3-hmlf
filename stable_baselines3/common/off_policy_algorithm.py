@@ -18,6 +18,7 @@ from stable_baselines3.common.save_util import load_from_pkl, save_to_pkl
 from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, RolloutReturn, Schedule, TrainFreq, TrainFrequencyUnit
 from stable_baselines3.common.utils import safe_mean, should_collect_more_steps
 from stable_baselines3.common.vec_env import VecEnv
+from stable_baselines3.common.spaces import ContinuousParameters
 from stable_baselines3.her.her_replay_buffer import HerReplayBuffer
 
 
@@ -425,6 +426,9 @@ class OffPolicyAlgorithm(BaseAlgorithm):
             # We store the scaled action in the buffer
             buffer_action = scaled_action
             action = self.policy.unscale_action(scaled_action)
+        elif isinstance(self.action_space, ContinuousParameters):
+            action = unscaled_action
+            buffer_action = np.hstack(unscaled_action[0])
         else:
             # Discrete case, no need to normalize or clip
             buffer_action = unscaled_action

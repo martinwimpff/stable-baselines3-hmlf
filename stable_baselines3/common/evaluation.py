@@ -1,10 +1,12 @@
 import warnings
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union, TYPE_CHECKING
 
 import gym
 import numpy as np
 
-from stable_baselines3.common import base_class
+if TYPE_CHECKING:
+    from stable_baselines3.common import base_class
+
 from stable_baselines3.common.vec_env import DummyVecEnv, VecEnv, VecMonitor, is_vecenv_wrapped
 
 

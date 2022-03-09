@@ -5,9 +5,10 @@ import pathlib
 import time
 from abc import ABC, abstractmethod
 from collections import deque
-from typing import Any, Dict, Iterable, List, Optional, Tuple, Type, Union
+from typing import TYPE_CHECKING, Any, Dict, Iterable, List, Optional, Tuple, Type, Union
 
 import gym
+from gym import spaces
 import numpy as np
 import torch as th
 
@@ -20,7 +21,10 @@ from stable_baselines3.common.noise import ActionNoise
 from stable_baselines3.common.policies import BasePolicy, get_policy_from_name
 from stable_baselines3.common.preprocessing import check_for_nested_spaces, is_image_space, is_image_space_channels_first
 from stable_baselines3.common.save_util import load_from_zip_file, recursive_getattr, recursive_setattr, save_to_zip_file
-from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
+
+if TYPE_CHECKING:
+    from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
+
 from stable_baselines3.common.utils import (
     check_for_correct_spaces,
     get_device,
@@ -39,7 +43,7 @@ from stable_baselines3.common.vec_env import (
 )
 
 
-def maybe_make_env(env: Union[GymEnv, str, None], verbose: int) -> Optional[GymEnv]:
+def maybe_make_env(env: Union["GymEnv", str, None], verbose: int) -> Optional["GymEnv"]:
     """If env is a string, make the environment; otherwise, return env.
 
     :param env: The environment to learn from.
@@ -86,9 +90,9 @@ class BaseAlgorithm(ABC):
     def __init__(
         self,
         policy: Type[BasePolicy],
-        env: Union[GymEnv, str, None],
+        env: Union["GymEnv", str, None],
         policy_base: Type[BasePolicy],
-        learning_rate: Union[float, Schedule],
+        learning_rate: Union[float, "Schedule"],
         policy_kwargs: Optional[Dict[str, Any]] = None,
         tensorboard_log: Optional[str] = None,
         verbose: int = 0,
@@ -111,7 +115,7 @@ class BaseAlgorithm(ABC):
         if verbose > 0:
             print(f"Using {self.device} device")
 
-        self.env = None  # type: Optional[GymEnv]
+        self.env = None  # type: Optional["GymEnv"]
         # get VecNormalize object if needed
         self._vec_normalize_env = unwrap_vec_normalize(env)
         self.verbose = verbose
@@ -186,7 +190,7 @@ class BaseAlgorithm(ABC):
                 raise ValueError("generalized State-Dependent Exploration (gSDE) can only be used with continuous actions.")
 
     @staticmethod
-    def _wrap_env(env: GymEnv, verbose: int = 0, monitor_wrapper: bool = True) -> VecEnv:
+    def _wrap_env(env: "GymEnv", verbose: int = 0, monitor_wrapper: bool = True) -> VecEnv:
         """ "
         Wrap environment with the appropriate wrappers if needed.
         For instance, to have a vectorized environment
@@ -259,7 +263,7 @@ class BaseAlgorithm(ABC):
         """Getter for the logger object."""
         return self._logger
 
-    def _get_eval_env(self, eval_env: Optional[GymEnv]) -> Optional[GymEnv]:
+    def _get_eval_env(self, eval_env: Optional["GymEnv"]) -> Optional["GymEnv"]:
         """
         Return the environment that will be used for evaluation.
 
@@ -345,7 +349,7 @@ class BaseAlgorithm(ABC):
 
     def _init_callback(
         self,
-        callback: MaybeCallback,
+        callback: "MaybeCallback",
         eval_env: Optional[VecEnv] = None,
         eval_freq: int = 10000,
         n_eval_episodes: int = 5,
@@ -384,8 +388,8 @@ class BaseAlgorithm(ABC):
     def _setup_learn(
         self,
         total_timesteps: int,
-        eval_env: Optional[GymEnv],
-        callback: MaybeCallback = None,
+        eval_env: Optional["GymEnv"],
+        callback: "MaybeCallback" = None,
         eval_freq: int = 10000,
         n_eval_episodes: int = 5,
         log_path: Optional[str] = None,
@@ -481,7 +485,7 @@ class BaseAlgorithm(ABC):
         """
         return self._vec_normalize_env
 
-    def set_env(self, env: GymEnv, force_reset: bool = True) -> None:
+    def set_env(self, env: "GymEnv", force_reset: bool = True) -> None:
         """
         Checks the validity of the environment, and if it is coherent, set it as the current environment.
         Furthermore wrap any non vectorized env into a vectorized
@@ -515,10 +519,10 @@ class BaseAlgorithm(ABC):
     def learn(
         self,
         total_timesteps: int,
-        callback: MaybeCallback = None,
+        callback: "MaybeCallback" = None,
         log_interval: int = 100,
         tb_log_name: str = "run",
-        eval_env: Optional[GymEnv] = None,
+        eval_env: Optional["GymEnv"] = None,
         eval_freq: int = -1,
         n_eval_episodes: int = 5,
         eval_log_path: Optional[str] = None,
@@ -649,7 +653,7 @@ class BaseAlgorithm(ABC):
     def load(
         cls,
         path: Union[str, pathlib.Path, io.BufferedIOBase],
-        env: Optional[GymEnv] = None,
+        env: Optional["GymEnv"] = None,
         device: Union[th.device, str] = "auto",
         custom_objects: Optional[Dict[str, Any]] = None,
         print_system_info: bool = False,
