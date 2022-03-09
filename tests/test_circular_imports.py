@@ -86,7 +86,6 @@ def test_circular_imports_vec_env():
     from stable_baselines3.common.vec_env import (
         base_vec_env,
         dummy_vec_env,
-        obs_dict_wrapper,
         subproc_vec_env,
         util,
         vec_check_nan,
