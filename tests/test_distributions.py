@@ -5,6 +5,7 @@ import gym
 import numpy as np
 import pytest
 import torch as th
+from gym.spaces import Box
 
 from stable_baselines3 import A2C, PPO
 from stable_baselines3.common.distributions import (
@@ -12,12 +13,14 @@ from stable_baselines3.common.distributions import (
     CategoricalDistribution,
     DiagGaussianDistribution,
     MultiCategoricalDistribution,
+    HybridDistribution,
     SquashedDiagGaussianDistribution,
     StateDependentNoiseDistribution,
     TanhBijector,
     kl_divergence,
 )
 from stable_baselines3.common.utils import set_random_seed
+from stable_baselines3.common.spaces import HybridBase, OneHotHybrid
 
 N_ACTIONS = 2
 N_FEATURES = 3
@@ -224,3 +227,42 @@ def test_kl_divergence(dist_type):
         )
 
         assert th.allclose(full_kl_div, ad_hoc_kl)
+
+
+@pytest.mark.parametrize(
+    "action_space",
+    [
+        OneHotHybrid(
+            [
+                Box(low=-1, high=143, shape=(1,)),
+                Box(low=1, high=1.2, shape=(2,)),
+                Box(low=11, high=13, shape=(3,)),
+                Box(low=-1, high=1, shape=(4,)),
+                Box(low=-1, high=1, shape=(5,)),
+            ]
+        ),
+        OneHotHybrid(
+            [
+                Box(low=-1, high=143, shape=(1,)),
+                Box(low=1, high=1.2, shape=(2,)),
+            ]
+        ),
+    ],
+)
+def test_hybrid(action_space: HybridBase):
+    # The entropy can be approximated by averaging the negative log likelihood
+    # mean negative log likelihood == entropy
+    set_random_seed(1)
+    dist = HybridDistribution(action_space)
+
+    set_random_seed(1)
+    dim = action_space.get_dimension()
+    deterministic_actions = th.rand(N_SAMPLES, dim)
+    _, log_std = dist.proba_distribution_net(N_FEATURES, log_std_init=th.log(th.tensor(0.2)))
+
+    dist = dist.proba_distribution(deterministic_actions, log_std)
+
+    actions = dist.get_actions()
+    entropy = dist.entropy()
+    log_prob = dist.log_prob(actions)
+    assert th.allclose(entropy.mean(), -log_prob.mean(), rtol=5e-1)
