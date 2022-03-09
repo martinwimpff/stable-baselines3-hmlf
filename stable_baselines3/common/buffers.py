@@ -7,6 +7,8 @@ import torch as th
 from gym import spaces
 
 from stable_baselines3.common.preprocessing import get_action_dim, get_obs_shape
+from stable_baselines3.common.spaces.hybrid_base import HybridBase
+from stable_baselines3.common.spaces.simple_hybrid import SimpleHybrid
 from stable_baselines3.common.type_aliases import (
     DictReplayBufferSamples,
     DictRolloutBufferSamples,
@@ -198,7 +200,10 @@ class ReplayBuffer(BaseBuffer):
         else:
             self.next_observations = np.zeros((self.buffer_size, self.n_envs) + self.obs_shape, dtype=observation_space.dtype)
 
-        self.actions = np.zeros((self.buffer_size, self.n_envs, self.action_dim), dtype=action_space.dtype)
+        if isinstance(self.action_space, SimpleHybrid):
+            self.actions = np.zeros((self.buffer_size, self.n_envs, self.action_dim), dtype=np.float32)
+        else:
+            self.actions = np.zeros((self.buffer_size, self.n_envs, self.action_dim), dtype=action_space.dtype)
 
         self.rewards = np.zeros((self.buffer_size, self.n_envs), dtype=np.float32)
         self.dones = np.zeros((self.buffer_size, self.n_envs), dtype=np.float32)
