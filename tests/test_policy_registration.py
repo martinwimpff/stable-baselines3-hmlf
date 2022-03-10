@@ -1,7 +1,7 @@
 import gym
 import pytest
 
-from stable_baselines3 import A2C, DDPG, DQN, PPO, SAC, TD3, PDQN, MPDQN  # TODO: PADDPG, SDDPG
+from stable_baselines3 import A2C, DDPG, DQN, PPO, SAC, TD3, PDQN, MPDQN, SDDPG  # TODO: PADDPG, SSAC?
 from stable_baselines3.a2c import MlpPolicy as A2CMlpPolicy
 from stable_baselines3.ddpg import MlpPolicy as DDPGMlpPolicy
 from stable_baselines3.dqn import MlpPolicy as DQNMlpPolicy
@@ -9,11 +9,10 @@ from stable_baselines3.ppo import MlpPolicy as PPOMlpPolicy
 from stable_baselines3.sac import MlpPolicy as SACMlpPolicy
 from stable_baselines3.td3 import MlpPolicy as TD3MlpPolicy
 from stable_baselines3.pdqn import MlpPolicy as PDQNMlpPolicy
-from stable_baselines3.common.envs.dummy_hybrid import DummyHybrid
 from stable_baselines3.mpdqn import MlpPolicy as MPDQNMlpPolicy
+from stable_baselines3.sddpg import MlpPolicy as SDDPGMlpPolicy
+from stable_baselines3.common.envs.dummy_hybrid import DummyHybrid
 #from hmlf.algorithms.paddpg import MlpPolicy as PADDPGMlpPolicy
-#from hmlf.algorithms.sddpg import MlpPolicy as SDDPGMlpPolicy
-
 
 
 @pytest.fixture
@@ -39,7 +38,7 @@ def dummy_box_env():
         (PDQN, PDQNMlpPolicy),
         #(PADDPG, PADDPGMlpPolicy),
         (PPO, PPOMlpPolicy),
-        #(SDDPG, SDDPGMlpPolicy),
+        (SDDPG, SDDPGMlpPolicy),
         (TD3, TD3MlpPolicy),
     ],
 )
