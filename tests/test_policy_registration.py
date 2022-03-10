@@ -1,17 +1,17 @@
 import gym
 import pytest
 
-from stable_baselines3 import A2C, DDPG, DQN, PPO, SAC, TD3  # TODO: MPDQN, PADDPG, PDQN, SDDPG
+from stable_baselines3 import A2C, DDPG, DQN, PPO, SAC, TD3, PDQN  # TODO: MPDQN, PADDPG, SDDPG
 from stable_baselines3.a2c import MlpPolicy as A2CMlpPolicy
 from stable_baselines3.ddpg import MlpPolicy as DDPGMlpPolicy
 from stable_baselines3.dqn import MlpPolicy as DQNMlpPolicy
 from stable_baselines3.ppo import MlpPolicy as PPOMlpPolicy
 from stable_baselines3.sac import MlpPolicy as SACMlpPolicy
 from stable_baselines3.td3 import MlpPolicy as TD3MlpPolicy
+from stable_baselines3.pdqn import MlpPolicy as PDQNMlpPolicy
 from stable_baselines3.common.envs.dummy_hybrid import DummyHybrid
 #from hmlf.algorithms.mpdqn import MlpPolicy as MPDQNMlpPolicy
 #from hmlf.algorithms.paddpg import MlpPolicy as PADDPGMlpPolicy
-#from hmlf.algorithms.pdqn import MlpPolicy as PDQNMlpPolicy
 #from hmlf.algorithms.sddpg import MlpPolicy as SDDPGMlpPolicy
 
 
@@ -36,7 +36,7 @@ def dummy_box_env():
     [
         (DDPG, DDPGMlpPolicy),
         #(MPDQN, MPDQNMlpPolicy),
-        #(PDQN, PDQNMlpPolicy),
+        (PDQN, PDQNMlpPolicy),
         #(PADDPG, PADDPGMlpPolicy),
         (PPO, PPOMlpPolicy),
         #(SDDPG, SDDPGMlpPolicy),
