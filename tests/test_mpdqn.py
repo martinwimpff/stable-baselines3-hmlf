@@ -4,8 +4,8 @@ import numpy as np
 import pytest
 from gym.spaces import Box
 
-from stable_baselines3 import PDQN  # , MPDQN
-# from stable_baselines3.mpdqn import MlpPolicy as MPDQNMlpPolicy
+from stable_baselines3 import PDQN, MPDQN
+from stable_baselines3.mpdqn import MlpPolicy as MPDQNMlpPolicy
 from stable_baselines3.pdqn import MlpPolicy as PDQNMlpPolicy
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.utils import get_linear_fn
@@ -22,7 +22,7 @@ def simple_env():
 @pytest.mark.parametrize(
     "model,policy_class",
     [
-        # (MPDQN, MPDQNMlpPolicy),
+        (MPDQN, MPDQNMlpPolicy),
         (PDQN, PDQNMlpPolicy),
     ],
 )
@@ -42,7 +42,7 @@ def test_init(model: PDQN, policy_class: PDQNMlpPolicy, simple_env: DummyHybrid)
 @pytest.mark.parametrize(
     "model,policy_class",
     [
-        #(MPDQN, MPDQNMlpPolicy),
+        (MPDQN, MPDQNMlpPolicy),
         (PDQN, PDQNMlpPolicy),
     ],
 )
@@ -80,14 +80,14 @@ def test_action_spaces(simple_env: SimpleHybrid):
 
     with pytest.raises(AssertionError):
         PDQNMlpPolicy(observation_space, action_space_false, schedule, schedule)
-    #with pytest.raises(AssertionError):
-    #    MPDQNMlpPolicy(observation_space, action_space_false, schedule, schedule)
+    with pytest.raises(AssertionError):
+        MPDQNMlpPolicy(observation_space, action_space_false, schedule, schedule)
 
 
 @pytest.mark.parametrize(
     "model,policy_class",
     [
-        #(MPDQN, MPDQNMlpPolicy),
+        (MPDQN, MPDQNMlpPolicy),
         (PDQN, PDQNMlpPolicy),
     ],
 )
@@ -101,7 +101,7 @@ def test_is_running(model: Type[PDQN], policy_class: Type[PDQNMlpPolicy], simple
 @pytest.mark.parametrize(
     "model,policy_class",
     [
-        #(MPDQN, MPDQNMlpPolicy),
+        (MPDQN, MPDQNMlpPolicy),
         (PDQN, PDQNMlpPolicy),
     ],
 )
