@@ -1,21 +1,16 @@
 from typing import Any, Dict, List, Optional, Tuple, Type, Union
 
 import torch as th
-from gym import spaces
 from torch import nn
+from gym import spaces
 
-from stable_baselines3.common.distributions import SquashedDiagGaussianDistribution
-from stable_baselines3.common.policies import BasePolicy, ContinuousCritic, register_policy
-from stable_baselines3.common.preprocessing import get_action_dim
-from stable_baselines3.common.torch_layers import (
-    BaseFeaturesExtractor,
-    FlattenExtractor,
-    NatureCNN,
-    create_mlp,
-    get_actor_critic_arch,
-)
-from stable_baselines3.common.type_aliases import Schedule
 from stable_baselines3.sddpg.policies import MetaCritic
+from stable_baselines3.common.distributions import SquashedDiagGaussianDistribution
+from stable_baselines3.common.policies import BasePolicy, ContinuousCritic
+from stable_baselines3.common.policies import register_policy
+from stable_baselines3.common.preprocessing import get_action_dim
+from stable_baselines3.common.torch_layers import BaseFeaturesExtractor, FlattenExtractor, NatureCNN, create_mlp, get_actor_critic_arch
+from stable_baselines3.common.type_aliases import Schedule
 
 # CAP the standard deviation of the actor
 LOG_STD_MAX = 2

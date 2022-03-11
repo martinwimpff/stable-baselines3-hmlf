@@ -4,14 +4,14 @@ import numpy as np
 import pytest
 from gym.spaces import Box
 
-from stable_baselines3 import MPDQN, PDQN
-from stable_baselines3.common.envs import DummyHybrid
-from stable_baselines3.common.evaluation import evaluate_policy
-from stable_baselines3.common.spaces import OneHotHybrid, SimpleHybrid
-from stable_baselines3.common.utils import get_linear_fn
-from stable_baselines3.common.vec_env.dummy_vec_env import DummyVecEnv
+from stable_baselines3 import PDQN, MPDQN
 from stable_baselines3.mpdqn import MlpPolicy as MPDQNMlpPolicy
 from stable_baselines3.pdqn import MlpPolicy as PDQNMlpPolicy
+from stable_baselines3.common.evaluation import evaluate_policy
+from stable_baselines3.common.utils import get_linear_fn
+from stable_baselines3.common.envs import DummyHybrid
+from stable_baselines3.common.vec_env.dummy_vec_env import DummyVecEnv
+from stable_baselines3.common.spaces import OneHotHybrid, SimpleHybrid
 
 
 @pytest.fixture

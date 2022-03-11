@@ -5,14 +5,14 @@ from stable_baselines3.common.utils import get_system_info
 from stable_baselines3.ddpg import DDPG
 from stable_baselines3.dqn import DQN
 from stable_baselines3.her.her_replay_buffer import HerReplayBuffer
-from stable_baselines3.mpdqn import MPDQN
-from stable_baselines3.paddpg import PADDPG
-from stable_baselines3.pdqn import PDQN
 from stable_baselines3.ppo import PPO
 from stable_baselines3.sac import SAC
-from stable_baselines3.sddpg import SDDPG
-from stable_baselines3.ssac import SSAC
 from stable_baselines3.td3 import TD3
+from stable_baselines3.pdqn import PDQN
+from stable_baselines3.mpdqn import MPDQN
+from stable_baselines3.sddpg import SDDPG
+from stable_baselines3.paddpg import PADDPG
+from stable_baselines3.ssac import SSAC
 
 # Read version from file
 version_file = os.path.join(os.path.dirname(__file__), "version.txt")

@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
-from gym.spaces import Discrete
 
-from stable_baselines3.common.spaces import HybridBase, OneHotHybrid, SimpleHybrid
+from gym.spaces import Discrete
+from stable_baselines3.common.spaces import OneHotHybrid, SimpleHybrid, HybridBase
 
 from .utils import make_box
 

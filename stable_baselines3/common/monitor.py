@@ -5,7 +5,7 @@ import json
 import os
 import time
 from glob import glob
-from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union, TYPE_CHECKING
 
 import gym
 import numpy as np

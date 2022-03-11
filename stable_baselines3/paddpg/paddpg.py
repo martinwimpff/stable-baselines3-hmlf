@@ -3,14 +3,14 @@ from typing import Any, Callable, Dict, Optional, Tuple, Type, Union
 import numpy as np
 import torch as th
 from gym import spaces
-
 from stable_baselines3.common.buffers import ReplayBuffer
-from stable_baselines3.common.envs.wrap_environment import register_algorithm_for_wrap_environment, wrap_one_hot
+
+from stable_baselines3.td3.policies import TD3Policy
+from stable_baselines3.td3.td3 import TD3
 from stable_baselines3.common.noise import ActionNoise
 from stable_baselines3.common.off_policy_algorithm import OffPolicyAlgorithm
 from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback
-from stable_baselines3.td3.policies import TD3Policy
-from stable_baselines3.td3.td3 import TD3
+from stable_baselines3.common.envs.wrap_environment import register_algorithm_for_wrap_environment, wrap_one_hot
 
 
 class PADDPG(TD3):

@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from stable_baselines3.common.spaces import ContinuousParameters, Discrete, HybridBase, SimpleHybrid
+from stable_baselines3.common.spaces import ContinuousParameters, Discrete, SimpleHybrid, HybridBase
 
 from .utils import make_box
 

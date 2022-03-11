@@ -2,19 +2,14 @@ from typing import Any, Dict, List, Optional, Tuple, Type, Union
 
 import numpy as np
 import torch as th
-from gym.spaces import Box, Space
 from torch import nn
+from gym.spaces import Box, Space
 
-from stable_baselines3.common.policies import BaseModel, BasePolicy, ContinuousCritic, register_policy
-from stable_baselines3.common.spaces.simple_hybrid import SimpleHybrid
-from stable_baselines3.common.torch_layers import (
-    BaseFeaturesExtractor,
-    FlattenExtractor,
-    NatureCNN,
-    create_mlp,
-    get_actor_critic_arch,
-)
+from stable_baselines3.common.policies import BaseModel, BasePolicy, ContinuousCritic
+from stable_baselines3.common.policies import register_policy
+from stable_baselines3.common.torch_layers import BaseFeaturesExtractor, FlattenExtractor, NatureCNN, create_mlp, get_actor_critic_arch
 from stable_baselines3.common.type_aliases import Schedule
+from stable_baselines3.common.spaces.simple_hybrid import SimpleHybrid
 
 
 class MetaActor(BasePolicy):

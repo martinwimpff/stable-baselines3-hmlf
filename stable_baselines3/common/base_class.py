@@ -8,9 +8,9 @@ from collections import deque
 from typing import TYPE_CHECKING, Any, Dict, Iterable, List, Optional, Tuple, Type, Union
 
 import gym
+from gym import spaces
 import numpy as np
 import torch as th
-from gym import spaces
 
 from stable_baselines3.common import utils
 from stable_baselines3.common.callbacks import BaseCallback, CallbackList, ConvertCallback, EvalCallback

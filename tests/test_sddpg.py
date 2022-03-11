@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from stable_baselines3.common.envs import DummyHybrid, SequenceWrapper
 from stable_baselines3.sddpg import SDDPG, MlpPolicy
+from stable_baselines3.common.envs import DummyHybrid, SequenceWrapper
 
 
 @pytest.fixture

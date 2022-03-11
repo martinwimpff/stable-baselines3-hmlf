@@ -10,7 +10,7 @@ from torch import nn
 from torch.distributions import Bernoulli, Categorical, Normal
 
 from stable_baselines3.common.preprocessing import get_action_dim
-from stable_baselines3.common.spaces import HybridBase, SimpleHybrid
+from stable_baselines3.common.spaces import SimpleHybrid, HybridBase
 
 
 class Distribution(ABC):
