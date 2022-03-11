@@ -1,7 +1,7 @@
 import gym
 import pytest
 
-from stable_baselines3 import A2C, DDPG, DQN, PPO, SAC, TD3, PDQN, MPDQN, SDDPG, PADDPG  # TODO: SSAC?
+from stable_baselines3 import A2C, DDPG, DQN, PPO, SAC, TD3, PDQN, MPDQN, SDDPG, PADDPG , SSAC
 from stable_baselines3.a2c import MlpPolicy as A2CMlpPolicy
 from stable_baselines3.ddpg import MlpPolicy as DDPGMlpPolicy
 from stable_baselines3.dqn import MlpPolicy as DQNMlpPolicy
@@ -12,6 +12,7 @@ from stable_baselines3.pdqn import MlpPolicy as PDQNMlpPolicy
 from stable_baselines3.mpdqn import MlpPolicy as MPDQNMlpPolicy
 from stable_baselines3.sddpg import MlpPolicy as SDDPGMlpPolicy
 from stable_baselines3.paddpg import MlpPolicy as PADDPGMlpPolicy
+from stable_baselines3.ssac import MlpPolicy as SSACMlpPolicy
 from stable_baselines3.common.envs.dummy_hybrid import DummyHybrid
 
 
@@ -40,6 +41,7 @@ def dummy_box_env():
         (PPO, PPOMlpPolicy),
         (SDDPG, SDDPGMlpPolicy),
         (TD3, TD3MlpPolicy),
+        (SSAC, SSACMlpPolicy)
     ],
 )
 def test_types_of_registered_hybrid_policys(algorithm, policy_class_mlp, dummy_hybrid_env):

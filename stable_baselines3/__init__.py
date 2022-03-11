@@ -12,6 +12,7 @@ from stable_baselines3.pdqn import PDQN
 from stable_baselines3.mpdqn import MPDQN
 from stable_baselines3.sddpg import SDDPG
 from stable_baselines3.paddpg import PADDPG
+from stable_baselines3.ssac import SSAC
 
 # Read version from file
 version_file = os.path.join(os.path.dirname(__file__), "version.txt")
