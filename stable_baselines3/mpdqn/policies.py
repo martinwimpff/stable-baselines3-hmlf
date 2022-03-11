@@ -3,17 +3,17 @@ from typing import Any, Dict, List, Optional, Type
 
 import numpy as np
 import torch as th
+from gym.spaces import Box, Space
 from torch import nn
-from gym.spaces import Space, Box
 
-from stable_baselines3.dqn.policies import QNetwork
-from stable_baselines3.td3.policies import Actor
-from stable_baselines3.pdqn import MlpPolicy as PDQNPolicy
-from stable_baselines3.pdqn.policies import build_state_parameter_space
 from stable_baselines3.common.policies import BasePolicy, register_policy
+from stable_baselines3.common.spaces import SimpleHybrid
 from stable_baselines3.common.torch_layers import BaseFeaturesExtractor, FlattenExtractor, NatureCNN
 from stable_baselines3.common.type_aliases import Schedule
-from stable_baselines3.common.spaces import SimpleHybrid
+from stable_baselines3.dqn.policies import QNetwork
+from stable_baselines3.pdqn import MlpPolicy as PDQNPolicy
+from stable_baselines3.pdqn.policies import build_state_parameter_space
+from stable_baselines3.td3.policies import Actor
 
 
 class MPDQNPolicy(BasePolicy):

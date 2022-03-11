@@ -2,16 +2,22 @@ from typing import Any, Dict, List, Optional, Tuple, Type, Union
 
 import numpy as np
 import torch as th
-from torch.nn import functional as F
 from gym import spaces
+from torch.nn import functional as F
 
-from stable_baselines3.pdqn.policies import PDQNPolicy
 from stable_baselines3.common.buffers import ReplayBuffer
+from stable_baselines3.common.envs.wrap_environment import register_algorithm_for_wrap_environment, wrap_simple_hybrid
 from stable_baselines3.common.noise import ActionNoise
 from stable_baselines3.common.off_policy_algorithm import OffPolicyAlgorithm
 from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
-from stable_baselines3.common.utils import get_linear_fn, get_schedule_fn, is_vectorized_observation, polyak_update, update_learning_rate
-from stable_baselines3.common.envs.wrap_environment import register_algorithm_for_wrap_environment, wrap_simple_hybrid
+from stable_baselines3.common.utils import (
+    get_linear_fn,
+    get_schedule_fn,
+    is_vectorized_observation,
+    polyak_update,
+    update_learning_rate,
+)
+from stable_baselines3.pdqn.policies import PDQNPolicy
 
 
 class PDQN(OffPolicyAlgorithm):

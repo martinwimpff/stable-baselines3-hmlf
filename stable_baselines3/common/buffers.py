@@ -7,7 +7,7 @@ import torch as th
 from gym import spaces
 
 from stable_baselines3.common.preprocessing import get_action_dim, get_obs_shape
-from stable_baselines3.common.spaces import SimpleHybrid, ContinuousParameters
+from stable_baselines3.common.spaces import ContinuousParameters, SimpleHybrid
 from stable_baselines3.common.type_aliases import (
     DictReplayBufferSamples,
     DictRolloutBufferSamples,

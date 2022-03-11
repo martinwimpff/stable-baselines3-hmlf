@@ -2,16 +2,16 @@ from typing import Any, Dict, List, Optional, Tuple, Type, Union
 
 import numpy as np
 import torch as th
-from torch.nn import functional as F
 from gym import spaces
+from torch.nn import functional as F
 
-from stable_baselines3.ssac.policies import SSACPolicy
-from stable_baselines3.common.noise import ActionNoise
 from stable_baselines3.common.buffers import ReplayBuffer
+from stable_baselines3.common.envs.wrap_environment import register_algorithm_for_wrap_environment, wrap_no_wrap
+from stable_baselines3.common.noise import ActionNoise
 from stable_baselines3.common.off_policy_algorithm import OffPolicyAlgorithm
 from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
 from stable_baselines3.common.utils import polyak_update
-from stable_baselines3.common.envs.wrap_environment import register_algorithm_for_wrap_environment, wrap_no_wrap
+from stable_baselines3.ssac.policies import SSACPolicy
 
 
 class SSAC(OffPolicyAlgorithm):

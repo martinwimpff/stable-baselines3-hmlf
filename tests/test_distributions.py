@@ -12,15 +12,15 @@ from stable_baselines3.common.distributions import (
     BernoulliDistribution,
     CategoricalDistribution,
     DiagGaussianDistribution,
-    MultiCategoricalDistribution,
     HybridDistribution,
+    MultiCategoricalDistribution,
     SquashedDiagGaussianDistribution,
     StateDependentNoiseDistribution,
     TanhBijector,
     kl_divergence,
 )
-from stable_baselines3.common.utils import set_random_seed
 from stable_baselines3.common.spaces import HybridBase, OneHotHybrid
+from stable_baselines3.common.utils import set_random_seed
 
 N_ACTIONS = 2
 N_FEATURES = 3

@@ -1,7 +1,7 @@
-from typing import TYPE_CHECKING, Any, Dict, Optional, Tuple, Type, Union, List
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Type, Union
 
-import torch as th
 import numpy as np
+import torch as th
 
 from stable_baselines3.common import spaces
 from stable_baselines3.common.buffers import ReplayBuffer

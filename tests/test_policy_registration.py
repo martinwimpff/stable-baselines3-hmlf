@@ -1,19 +1,19 @@
 import gym
 import pytest
 
-from stable_baselines3 import A2C, DDPG, DQN, PPO, SAC, TD3, PDQN, MPDQN, SDDPG, PADDPG , SSAC
+from stable_baselines3 import A2C, DDPG, DQN, MPDQN, PADDPG, PDQN, PPO, SAC, SDDPG, SSAC, TD3
 from stable_baselines3.a2c import MlpPolicy as A2CMlpPolicy
+from stable_baselines3.common.envs.dummy_hybrid import DummyHybrid
 from stable_baselines3.ddpg import MlpPolicy as DDPGMlpPolicy
 from stable_baselines3.dqn import MlpPolicy as DQNMlpPolicy
+from stable_baselines3.mpdqn import MlpPolicy as MPDQNMlpPolicy
+from stable_baselines3.paddpg import MlpPolicy as PADDPGMlpPolicy
+from stable_baselines3.pdqn import MlpPolicy as PDQNMlpPolicy
 from stable_baselines3.ppo import MlpPolicy as PPOMlpPolicy
 from stable_baselines3.sac import MlpPolicy as SACMlpPolicy
-from stable_baselines3.td3 import MlpPolicy as TD3MlpPolicy
-from stable_baselines3.pdqn import MlpPolicy as PDQNMlpPolicy
-from stable_baselines3.mpdqn import MlpPolicy as MPDQNMlpPolicy
 from stable_baselines3.sddpg import MlpPolicy as SDDPGMlpPolicy
-from stable_baselines3.paddpg import MlpPolicy as PADDPGMlpPolicy
 from stable_baselines3.ssac import MlpPolicy as SSACMlpPolicy
-from stable_baselines3.common.envs.dummy_hybrid import DummyHybrid
+from stable_baselines3.td3 import MlpPolicy as TD3MlpPolicy
 
 
 @pytest.fixture
