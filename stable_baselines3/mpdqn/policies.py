@@ -142,10 +142,6 @@ class MPDQNPolicy(BasePolicy):
         Q = self._format_q_output(q_values, batch_size)
         return Q
 
-
-
-
-
     def get_net_arch(self, net_arch: Optional[List[int]], features_extractor_class: Type[BaseFeaturesExtractor]):
         return PDQNPolicy.get_net_arch(self, net_arch, features_extractor_class)
 
