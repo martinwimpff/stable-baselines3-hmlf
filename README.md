@@ -6,6 +6,26 @@
 
 # Stable Baselines3
 
+## HMLF Algorithms Overview
+### TODO: implementation details (highlight differences to SB3)
+### PDQN
+- idea: operate directly on discrete-continuous hybrid action space instead of either a)discrete approximation of cont. part or b) relaxation of discrete part to cont. space
+- $\mathcal{A}=\{(k, x_k)|x_k\in\mathcal{X}_k \forall k\in[K]\}, k$ discrete, $x_k$ continuous.
+- parameter network $x(s;\theta)$ and Q-network $Q(s,x;w)=Q(1), ..., Q(K)\rightarrow k=\argmax_iQ(i)$
+- [Link to the Paper](https://arxiv.org/pdf/1810.06394.pdf)
+### MPDQN
+- idea: same as PDQN but solves problem of using all action parameters as joint input via multi-pass/paralellization
+- uses $\mathbf{x}\mathbf{e_k}$ "separately" for Q-network instead of using $\mathbf{x}$ jointly
+- [Link to the Paper](https://arxiv.org/pdf/1905.04388.pdf)
+### PADDPG
+- Actor network of DDPG outputs a action/option probabilities (argmax to get best discrete action) and action parameters
+- more focus on parameter bounding methods than on "hybrid" action space
+- paper involves heavy reward shaping and seems outdated (2015) but is a good starting point
+- [Link to the Paper](https://arxiv.org/pdf/1511.04143.pdf)
+### SDDPG?
+### SSAC?
+-----------------------------------------
+
 Stable Baselines3 (SB3) is a set of reliable implementations of reinforcement learning algorithms in PyTorch. It is the next major version of [Stable Baselines](https://github.com/hill-a/stable-baselines).
 
 You can read a detailed presentation of Stable Baselines3 in the [v1.0 blog post](https://araffin.github.io/post/sb3/) or our [JMLR paper](https://jmlr.org/papers/volume22/20-1364/20-1364.pdf).
