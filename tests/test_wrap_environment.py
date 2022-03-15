@@ -1,10 +1,10 @@
 import gym
 import pytest
 
-from stable_baselines3 import A2C, DQN, DDPG, TD3, PPO, SAC, MPDQN, PDQN, SDDPG, PADDPG
-from stable_baselines3.common.spaces import SimpleHybrid, OneHotHybrid
+from stable_baselines3 import A2C, DDPG, DQN, MPDQN, PADDPG, PDQN, PPO, SAC, SDDPG, TD3
 from stable_baselines3.common.envs import DummyHybrid, wrap_environment
 from stable_baselines3.common.envs.wrapper import OneHotWrapper, SequenceWrapper, SimpleHybridWrapper
+from stable_baselines3.common.spaces import OneHotHybrid, SimpleHybrid
 
 
 @pytest.mark.parametrize(
